@@ -27,10 +27,7 @@ type Message struct {
 	Content  string `json:"content"`
 	Type     string `json:"type"`
 	Color    string `json:"color"`
-	Users    int
 }
-
-var count Message
 
 func main() {
 	fs := http.FileServer(http.Dir("../public"))
@@ -56,9 +53,6 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 	blue := rand.Intn(255)
 	clients[ws] = true
 	color := fmt.Sprintf("rgb(%d, %d, %d)", red, green, blue)
-	count.Users = len(clients)
-	count.Key = rand.Uint64()
-	broadcast <- count
 
 	for {
 		var msg Message
